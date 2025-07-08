@@ -103,10 +103,11 @@
         }
 
         .subtitle {
-            font-size: 1.3em;
-            color: #6f42c1;
-            margin-bottom: 30px;
-            font-style: italic;
+            font-size: 2.0em;
+            color: rgb(16, 115, 155);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: bounce 2s infinite;
         }
 
         .love-message {
@@ -512,9 +513,9 @@
 
     <div class="container">
         <div class="birthday-card">
-            <h1 class="main-title">🎉 Chúc Mừng Sinh Nhật Em Yêu! 🎉</h1>
-            <p class="subtitle">Ngày đặc biệt của người con gái tuyệt vời nhất!</p>
-            
+            <h1 class="main-title">Chúc Mừng Sinh Nhật Em Yêu!</h1>
+            <p class="subtitle">🎂🎉🎉🎂</p>
+            <p class="subtitle">09/07/2025</p>
             <div class="photo-frame">
                 <img src="main.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
             </div>
@@ -580,7 +581,7 @@
             <button class="chatbot-close-btn" id="chatbotClose">&times;</button>
         </div>
         <div class="chatbot-messages" id="chatbotMessages">
-            <div class="chatbot-message bot">Chào mừng em đến với ngày đặc biệt! Anh có thể giúp gì cho em hôm nay?</div>
+            <div class="chatbot-message bot">Chúc mừng sinh nhật chị Như Băng, em là trợ lý ảo của anh Dương, có gì cần chị cứ nhờ em nha, em sẽ báo lại anh Dương sau, hihi :3 </div>
         </div>
         <div class="chatbot-input-area">
             <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Nhập tin nhắn của em...">
@@ -734,7 +735,7 @@
         function showSurprise() {
             createFirework(window.innerWidth / 2, window.innerHeight / 2);
             setTimeout(() => {
-                alert('🎁 Quà của em đang trên đường tới! Anh đã chuẩn bị một bữa tối lãng mạn và một món quà đặc biệt cho em! 💕');
+                alert('🎁 Quà của em đang trên đường tới! Anh đã chuẩn bị một bữa tối lãng mạn và một món quà đặc biệt cho em! Hẹn em 19/07 lên tiệc nhé :3 💕');
             }, 500);
         }
 
@@ -817,7 +818,7 @@
             // Tùy chọn: addMessage('bot', '...'); // Hoặc một icon loading
 
             try {
-                const response = await fetch('https://975c416cd35c.ngrok-free.app/chatbot', {
+                const response = await fetch('https://af1200123ab8.ngrok-free.app/chatbot', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
