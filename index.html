@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật Em Yêu! 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            display: flex;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.7) 0%, rgba(118, 75, 162, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .frame {
+            width: 50%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .frame-left {
+            border-right: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .frame-right {
+            border-left: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .birthday-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            color: #d63384;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: bounce 2s infinite;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #6f42c1;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .love-message {
+            font-size: 1.1em;
+            color: #495057;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: left;
+            background: rgba(255, 182, 193, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #d63384;
+            display: none; 
+        }
+
+        .cake-section {
+            margin: 30px 0;
+        }
+
+        .cake {
+            font-size: 4em;
+            animation: rotate 3s linear infinite;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #d63384, #6f42c1);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #20c997, #0d6efd);
+            color: white;
+        }
+
+        .btn-tertiary { 
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: fixed;
+            color: #d63384;
+            font-size: 20px;
+            animation: floatUp 4s linear infinite;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        /* Flower petals */
+        .petal {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 50%;
+            animation: fall 8s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .firework {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: firework 2s ease-out infinite;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes firework {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border: 8px solid #d63384;
+            border-radius: 50%;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .countdown {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-item {
+            display: inline-block;
+            margin: 0 10px;
+            text-align: center;
+            color: #d63384;
+            font-weight: bold;
+        }
+
+        .countdown-number {
+            font-size: 2em;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .birthday-card {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .main-title {
+                font-size: 2em;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* --- Chatbot Styles --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 420px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1001;
+            transform: scale(0.8);
+            transform-origin: bottom right;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .chatbot-container.active {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(45deg, #6f42c1, #d63384);
+            color: white;
+            padding: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .chatbot-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .chatbot-message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .chatbot-message.user {
+            align-self: flex-end;
+            background-color: #d63384;
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chatbot-message.bot {
+            align-self: flex-start;
+            background-color: #e2e6ea;
+            color: #343a40;
+            border-bottom-left-radius: 2px;
+        }
+
+        .chatbot-input-area {
+            display: flex;
+            padding: 10px 15px;
+            border-top: 1px solid #dee2e6;
+            background-color: #ffffff;
+        }
+
+        .chatbot-input {
+            flex-grow: 1;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 0.95em;
+            outline: none;
+        }
+
+        .chatbot-send-btn {
+            background: linear-gradient(45deg, #20c997, #0d6efd);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .chatbot-send-btn:hover {
+            opacity: 0.9;
+        }
+
+        .chatbot-toggle-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #d63384, #6f42c1);
+            color: white;
+            border: none;
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1002;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .chatbot-toggle-button:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            .chatbot-container {
+                width: 90%;
+                right: 5%;
+                bottom: 80px; /* Adjust if toggle button is also at bottom */
+                height: 70%;
+            }
+            .chatbot-toggle-button {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="nhac1.mp3" type="audio/mpeg">
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="birthday-card">
+            <h1 class="main-title">🎉 Chúc Mừng Sinh Nhật Em Yêu! 🎉</h1>
+            <p class="subtitle">Ngày đặc biệt của người con gái tuyệt vời nhất!</p>
+            
+            <div class="photo-frame">
+                <img src="main.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            </div>
+            
+            <div class="love-message" id="loveMessage">
+                <p>💖 <strong>Gửi em yêu của anh,</strong></p>
+                <p>Hôm nay là ngày đặc biệt nhất trong năm - ngày sinh nhật của người con gái tuyệt vời nhất mà anh từng gặp. Anh muốn gửi đến em những lời chúc tốt đẹp nhất, những nụ hôn ngọt ngào nhất, và tất cả tình yêu mà anh dành cho em.</p>
+                <p>Chúc em luôn xinh đẹp, hạnh phúc, và thành công trong mọi điều em làm. Anh sẽ luôn ở bên cạnh em, yêu thương và bảo vệ em mãi mãi!</p>
+                <p><strong>Anh yêu em nhiều lắm! 💕</strong></p>
+            </div>
+            
+            <div class="cake-section">
+                <div class="cake">🎂</div>
+                <div class="cake">🍰</div>
+                <div class="cake">🎂</div>
+                <p style="margin-top: 15px; font-size: 1.2em; color: #d63384;">
+                    <strong>Thổi nến và ước một điều thật đẹp nhé em! ✨</strong>
+                </p>
+            </div>
+            
+            <div class="countdown">
+                <h3 style="color: #d63384; margin-bottom: 15px;">🎈 Kỷ niệm đặc biệt 🎈</h3>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">365</span>
+                    <span class="countdown-label">Ngày</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">24</span>
+                    <span class="countdown-label">Giờ</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">60</span>
+                    <span class="countdown-label">Phút</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">60</span>
+                    <span class="countdown-label">Giây</span>
+                </div>
+                <p style="margin-top: 10px; font-style: italic; color: #6f42c1;">
+                    Thời gian anh đã yêu em ❤️
+                </p>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-tertiary" onclick="showMessage()">
+                    💌 Hiện lời chúc
+                </button>
+                <button class="btn btn-primary" onclick="showSurprise()">
+                    🎁 Nhấn để nhận quà!
+                </button>
+                <button class="btn btn-secondary" onclick="toggleMusic()">
+                    🎵 <span id="musicBtn">Bật nhạc nền</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle-button" id="chatbotToggle">💬</button>
+
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" id="chatbotHeader">
+            Chatbot Chúc Mừng
+            <button class="chatbot-close-btn" id="chatbotClose">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="chatbot-message bot">Chào mừng em đến với ngày đặc biệt! Anh có thể giúp gì cho em hôm nay?</div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Nhập tin nhắn của em...">
+            <button class="chatbot-send-btn" id="chatbotSend">Gửi</button>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Create flower petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDelay = Math.random() * 2 + 's';
+            petal.style.animationDuration = (Math.random() * 5 + 3) + 's';
+            petal.style.background = ['#ff69b4', '#ff1493', '#ffc0cb', '#ffb6c1'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(petal);
+            
+            setTimeout(() => {
+                petal.remove();
+            }, 8000);
+        }
+
+        // Create fireworks
+        function createFirework(x, y) {
+            for (let i = 0; i < 12; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                firework.style.transform = `rotate(${i * 30}deg)`;
+                firework.style.background = ['#ff69b4', '#ffd700', '#ff1493', '#00ff00', '#0099ff'][Math.floor(Math.random() * 5)];
+                document.body.appendChild(firework);
+                
+                setTimeout(() => {
+                    firework.remove();
+                }, 2000);
+            }
+        }
+
+        // Danh sách ảnh trong thư mục images
+        const imageList = [
+            'nb/nb1.jpg', 'nb/nb2.jpg', 'nb/nb3.jpg', 'nb/nb4_1.jpg',
+            'nb/nb5.JPG', 'nb/nb6.jpeg', 'nb/nb7.jpg', 'nb/nb8.JPG',
+            'nb/nb9.JPG', 'nb/nb10.JPG', 'nb/nb11.JPG', 'nb/nb12.jpg'
+        ];
+
+        // Tạo slideshow tự động
+        function createSlideshow() {
+            const slideshowContainer = document.querySelector('.slideshow-container');
+            slideshowContainer.innerHTML = ''; 
+
+            for (let i = 0; i < imageList.length; i += 2) {
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                if (i === 0) slide.classList.add('active'); 
+
+                const frameLeft = document.createElement('div');
+                frameLeft.className = 'frame frame-left';
+                if (imageList[i]) {
+                    frameLeft.style.backgroundImage = `url('${imageList[i]}')`;
+                }
+
+                const frameRight = document.createElement('div');
+                frameRight.className = 'frame frame-right';
+                if (imageList[i + 1]) {
+                    frameRight.style.backgroundImage = `url('${imageList[i + 1]}')`;
+                } else {
+                    frameRight.style.backgroundImage = `url('${imageList[0]}')`;
+                }
+
+                slide.appendChild(frameLeft);
+                slide.appendChild(frameRight);
+                slideshowContainer.appendChild(slide);
+            }
+        }
+
+        // Slideshow functionality
+        let currentSlide = 0;
+        let slides = [];
+        let totalSlides = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (slides[index]) {
+                slides[index].classList.add('active');
+            }
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function initSlideshow() {
+            createSlideshow();
+            slides = document.querySelectorAll('.slide');
+            totalSlides = slides.length;
+            
+            if (totalSlides > 0) {
+                setInterval(nextSlide, 4000);
+            }
+        }
+
+        window.addEventListener('load', initSlideshow);
+
+        // Music control
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicBtn.textContent = 'Bật nhạc nền';
+                isPlaying = false;
+            } else {
+                backgroundMusic.play().catch(e => {
+                    console.log('Không thể phát nhạc tự động. Người dùng cần tương tác trước.');
+                    alert('🎵 Trình duyệt cần bạn tương tác trước khi phát nhạc. Hãy nhấn nút này lại nhé!');
+                });
+                musicBtn.textContent = 'Tắt nhạc nền';
+                isPlaying = true;
+            }
+        }
+
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                backgroundMusic.play().catch(e => {
+                    console.log('Auto-play không được phép');
+                });
+            }, 1000);
+        });
+
+        // Show surprise message
+        function showSurprise() {
+            createFirework(window.innerWidth / 2, window.innerHeight / 2);
+            setTimeout(() => {
+                alert('🎁 Quà của em đang trên đường tới! Anh đã chuẩn bị một bữa tối lãng mạn và một món quà đặc biệt cho em! 💕');
+            }, 500);
+        }
+
+        // Show the love message
+        function showMessage() {
+            const loveMessageDiv = document.getElementById('loveMessage');
+            loveMessageDiv.style.display = 'block'; 
+            createFirework(loveMessageDiv.offsetLeft + loveMessageDiv.offsetWidth / 2, loveMessageDiv.offsetTop + loveMessageDiv.offsetHeight / 2);
+        }
+
+        // Update countdown (simulated - counting up instead of down)
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const startDate = new Date('2023-11-24').getTime(); 
+            const difference = now - startDate;
+            
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        setInterval(createHeart, 1000);
+        setInterval(createPetal, 2000);
+        setInterval(updateCountdown, 1000);
+
+        setTimeout(() => {
+            createFirework(100, 100);
+            createFirework(window.innerWidth - 100, 100);
+        }, 2000);
+
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'BUTTON') {
+                createFirework(e.clientX, e.clientY);
+            }
+        });
+
+        // --- Chatbot Logic ---
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotContainer = document.getElementById('chatbotContainer');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotHeader = document.getElementById('chatbotHeader');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+
+        let isChatbotOpen = false;
+
+        function toggleChatbot() {
+            isChatbotOpen = !isChatbotOpen;
+            chatbotContainer.classList.toggle('active', isChatbotOpen);
+            // Hide toggle button when open, show when closed
+            chatbotToggle.style.display = isChatbotOpen ? 'none' : 'flex'; 
+        }
+
+        // Initially show toggle button, hide chatbot container
+        chatbotContainer.classList.remove('active');
+        chatbotToggle.style.display = 'flex';
+
+        chatbotToggle.addEventListener('click', toggleChatbot);
+        chatbotClose.addEventListener('click', toggleChatbot);
+        chatbotHeader.addEventListener('click', toggleChatbot); 
+        
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chatbot-message', sender);
+            messageDiv.textContent = text;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Auto-scroll to latest message
+        }
+
+        // NEW: Function to send message to Python backend
+        async function respondToMessage(message) {
+            // Hiển thị tin nhắn 'bot đang gõ...' hoặc icon loading
+            // Tùy chọn: addMessage('bot', '...'); // Hoặc một icon loading
+
+            try {
+                const response = await fetch('https://975c416cd35c.ngrok-free.app/chatbot', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                addMessage('bot', data.response); // Thêm câu trả lời từ bot
+            } catch (error) {
+                console.error('Lỗi khi gửi tin nhắn đến chatbot:', error);
+                addMessage('bot', 'Xin lỗi, anh đang bận một chút. Em thử lại sau nhé! (Lỗi kết nối)');
+            } finally {
+                // Tùy chọn: Xóa tin nhắn 'bot đang gõ...' hoặc icon loading
+            }
+        }
+        
+        chatbotSend.addEventListener('click', () => {
+            const userMessage = chatbotInput.value.trim();
+            if (userMessage) {
+                addMessage('user', userMessage);
+                chatbotInput.value = '';
+                respondToMessage(userMessage);
+            }
+        });
+
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                chatbotSend.click();
+            }
+        });
+    </script>
+</body>
+</html>
